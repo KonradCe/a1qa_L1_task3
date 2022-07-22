@@ -1,4 +1,9 @@
 {
-  "chrome_options": ["--incognito", "--lang=en-US", "--start-maximized"],
+  "browser": "Chrome",
+  "chrome_params": ["--incognito", "--lang=en-US", "--start-maximized"],
+  "firefox_options_params": ["-private"],
+  "firefox_profile_prefs": {
+    "intl.accept_languages": "en-US"
+  },
   "explicit_wait_time": 10
 }

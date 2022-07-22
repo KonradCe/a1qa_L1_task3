@@ -1,4 +1,4 @@
-from framework.singleton_driver import SingletonWebDriver as Swd
+from framework.driver_utils import SingletonWebDriver as Swd
 
 driver = Swd.get_driver()
-driver.get('www.google.com')
+driver.get("https://store.steampowered.com/")

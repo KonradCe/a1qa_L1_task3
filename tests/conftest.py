@@ -1,13 +1,13 @@
 import pytest
 
-import utility_methods
-from singletonWebDriver import SingletonWebDriver
+from framework.driver_utils import SingletonWebDriver
+import framework.utils.config_data as config_utils
 
 
 @pytest.fixture()
 def driver_setup_teardown():
-    chrome_parameters = utility_methods.get_chrome_parameters_data()
-    driver = SingletonWebDriver().get_driver(chrome_parameters)
+    browser_of_choice = config_utils.get_browser_of_choice()
+    driver = SingletonWebDriver().get_driver(browser_of_choice)
     driver.get("https://store.steampowered.com/")
     yield driver
     driver.quit()

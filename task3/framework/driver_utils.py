@@ -1,4 +1,6 @@
-import framework.browser_factory
+from selenium import webdriver
+
+import task3.framework.browser_factory
 
 
 class Singleton(type):
@@ -18,9 +20,9 @@ class SingletonWebDriver(metaclass=Singleton):
     __driver = None
 
     @classmethod
-    def get_driver(cls, browser_name="Chrome"):
+    def get_driver(cls, browser_name="Chrome") -> webdriver:
         if cls.__driver is None:
-            cls.__driver = framework.browser_factory.create_driver(browser_name)
+            cls.__driver = task3.framework.browser_factory.create_driver(browser_name)
         return cls.__driver
 
     def unassign_driver(self):

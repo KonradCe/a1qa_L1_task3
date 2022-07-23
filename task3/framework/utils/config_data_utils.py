@@ -1,6 +1,7 @@
 import json
+from pathlib import Path
 
-config_data_file_path = "../data/config_data.json"
+config_data_file_path = Path(Path.cwd(), "task3/data/config_data.json")
 
 
 def get_browser_of_choice():

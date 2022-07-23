@@ -1,11 +1,10 @@
-import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
-import framework.utils.config_data as config_utils
+import task3.framework.utils.config_data_utils as config_utils
 
 
 def create_driver(browser_name):
@@ -39,7 +38,8 @@ def create_chrome_driver():
 
 
 def create_firefox_driver():
-    # specifying log_path as None stops the driver from creating log file every run, and sends display log output in console
+    # specifying log_path as None stops the driver from creating log file every run,
+    # and displays log output in the console
     service = FirefoxService(GeckoDriverManager().install(), log_path=None)
 
     options = webdriver.FirefoxOptions()

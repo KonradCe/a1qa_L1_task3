@@ -1,5 +1,6 @@
-from task3.framework.base_form import BaseForm
 from selenium.webdriver.common.by import By
+
+from task3.framework.base_form import BaseForm
 from task3.framework.elements import BasicElement, SubMenu
 
 

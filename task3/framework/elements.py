@@ -1,5 +1,5 @@
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
 from task3.framework.driver_utils import SingletonWebDriver as Swd
 
@@ -34,6 +34,12 @@ class ButtonElement(BaseElement):
 
 class BasicElement(BaseElement):
     pass
+
+
+class BasicElementWithText(BasicElement):
+    def get_text(self):
+        btn_element = super()._get_element()
+        print(btn_element.text)
 
 
 class SubMenu(BaseElement):

@@ -5,5 +5,5 @@
   "firefox_profile_prefs": {
     "intl.accept_languages": "en-US"
   },
-  "explicit_wait_time": 10
+  "explicit_wait_time": 5
 }

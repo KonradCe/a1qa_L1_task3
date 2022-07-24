@@ -4,6 +4,13 @@ from pathlib import Path
 config_data_file_path = Path(Path.cwd(), "task3/data/config_data.json")
 
 
+def get_explicit_wait_time():
+    with open(config_data_file_path) as f:
+        j = json.load(f)
+        wait_time = j["explicit_wait_time"]
+    return wait_time
+
+
 def get_browser_of_choice():
     with open(config_data_file_path) as f:
         j = json.load(f)

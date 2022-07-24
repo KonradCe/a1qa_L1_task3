@@ -1,4 +1,5 @@
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.by import By
 
 from task3.framework.driver_utils import SingletonWebDriver as Swd
 
@@ -31,5 +32,12 @@ class ButtonElement(BaseElement):
         print(btn_element.text)
 
 
-class UniqueElement(BaseElement):
+class BasicElement(BaseElement):
     pass
+
+
+class SubMenu(BaseElement):
+    def click_on_button_with_text(self, btn_string):
+        super()._get_element().find_element(
+            By.XPATH, f"//span[contains(text(), '{btn_string}')]"
+        ).click()

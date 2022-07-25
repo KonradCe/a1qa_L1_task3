@@ -10,8 +10,3 @@ def wait_for_alert() -> selenium.webdriver.common.alert.Alert:
     wait = WebDriverWait(Swd.get_driver(), get_explicit_wait_time())
     alert = wait.until(EC.alert_is_present())
     return alert
-
-
-def wait_for_alert_to_close():
-    wait = WebDriverWait(Swd.get_driver(), get_explicit_wait_time())
-    wait.until(EC.none_of(EC.alert_is_present()))

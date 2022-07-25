@@ -4,7 +4,6 @@ import task3.framework.driver_utils
 import task3.framework.utils.test_data_utils
 from task3.framework.base_form import BaseForm
 from task3.framework.elements import BasicElement
-from task3.framework.utils.logger_utils import log_debug
 
 
 class MainPage(BaseForm):

@@ -25,10 +25,12 @@ class SingletonWebDriver(metaclass=Singleton):
             cls.__driver = task3.framework.browser_factory.create_driver(browser_name)
         return cls.__driver
 
-    def unassign_driver(self):
-        self.__driver = None
+    @classmethod
+    def unassign_driver(cls):
+        cls.__driver = None
 
 
+# TODO: log driver action
 def go_to_page(url):
     SingletonWebDriver.get_driver().get(url)
 
@@ -43,3 +45,11 @@ def go_forward():
 
 def refresh_page():
     SingletonWebDriver.get_driver().refresh()
+
+
+def driver_quit():
+    SingletonWebDriver.get_driver().quit()
+
+
+def unassing_driver():
+    SingletonWebDriver.unassign_driver()

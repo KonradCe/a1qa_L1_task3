@@ -2,6 +2,7 @@ import logging
 
 
 def logger_setup():
+    # TODO: logger params should be put into logger_data.json
     logging.basicConfig(
         filename="my_log.log",
         level=logging.INFO,

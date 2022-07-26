@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+# TODO: convert this path to the one working regardless of the current working directory
 config_data_file_path = Path(Path.cwd(), "task3/data/config_data.json")
 
 

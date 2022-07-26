@@ -1,10 +1,14 @@
-import task3.framework.utils.test_data_utils as data_utils
 from task3.framework.utils.logger_utils import log_info
 from task3.pages.alerts_page import AlertsPage
 from task3.pages.main_page import MainPage
+from task3.pages.support_forms.left_pannel_menu import LeftPanelMenu
 
 
 def test_case1(driver_setup_teardown):
+    desired_string_step3 = "You clicked a button"
+    desired_string_step5 = "Do you confirm action?"
+    desired_string_step7 = "Please enter your name"
+
     log_info("start of TEST CASE 1 - ALERTS")
     # STEP 1: navigate to main page
     # -> main page is open
@@ -21,9 +25,8 @@ def test_case1(driver_setup_teardown):
 
     alerts_page = AlertsPage()
     log_info("STEP 2: ...In a menu click Alerts button.")
-    alerts_page.click_on_button_from_category_in_menu(
-        button_name="Alerts", category_name="Frame"
-    )
+    left_menu = LeftPanelMenu()
+    left_menu.click_on_button_from_category(button_name="Alerts", category_name="Frame")
     error_message_step2 = (
         "clicking on alerts button in the menu should show form to test alerts"
     )
@@ -35,7 +38,7 @@ def test_case1(driver_setup_teardown):
     alerts_page.click_on_alert_button()
     error_message_step3 = "clicking on alerts button should prompt an alert with 'You clicked a button' text."
     assert alerts_page.alert_with_text_is_open(
-        data_utils.get_desired_strings_for_test_case1()["step3"]
+        desired_string_step3
     ), error_message_step3
 
     # STEP 4: Click OK button
@@ -54,7 +57,7 @@ def test_case1(driver_setup_teardown):
         "confirmation box, with 'Do you confirm action?' text"
     )
     assert alerts_page.alert_with_text_is_open(
-        data_utils.get_desired_strings_for_test_case1()["step5"]
+        desired_string_step5
     ), error_message_step5
 
     # STEP 6: Click on OK button
@@ -81,7 +84,7 @@ def test_case1(driver_setup_teardown):
         "prompt, with 'Please enter your name' text"
     )
     assert alerts_page.alert_with_text_is_open(
-        data_utils.get_desired_strings_for_test_case1()["step7"]
+        desired_string_step7
     ), error_message_step7
 
     # STEP 8: Enter randomly generated text, click OK button

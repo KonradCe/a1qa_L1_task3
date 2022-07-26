@@ -1,11 +1,14 @@
-from task3.framework.utils import test_data_utils as data_utils
 from task3.framework.utils.logger_utils import log_info
-from task3.pages.alerts_page import AlertsPage
+from task3.pages.frames_page import FramesPage
 from task3.pages.main_page import MainPage
+from task3.pages.support_forms.left_pannel_menu import LeftPanelMenu
 from task3.pages.nested_frame_page import NestedFramePage
 
 
 def test_case2(driver_setup_teardown):
+    desired_string_parent_frame = "Parent frame"
+    desired_string_nested_frame = "Child Iframe"
+
     log_info("start of TEST CASE 2 - IFRAME")
     # STEP 1: Navigate to main page -> main page is open
     log_info("STEP 1: navigate to main page")
@@ -18,8 +21,8 @@ def test_case2(driver_setup_teardown):
     # -> Page with Nested Frames form is open.
     # -> There are messages "Parent frame" & "Child Iframe" present on page
     main_page.click_on_alert_frame_window_btn()
-    alerts_page = AlertsPage()
-    alerts_page.click_on_button_from_category_in_menu(
+    left_menu = LeftPanelMenu()
+    left_menu.click_on_button_from_category(
         button_name="Nested Frames", category_name="Frame"
     )
 
@@ -28,15 +31,31 @@ def test_case2(driver_setup_teardown):
     error_message_step2a = "clicking on 'Nested Frames' button in menu should result in a page with nested frames being open"
     assert nested_frames_page.is_open(), error_message_step2a
 
-    expected_strings = data_utils.get_desired_strings_for_test_case2()
     error_message_step2b = "the parent iframe should contain text 'Parent frame'"
     assert (
-        nested_frames_page.get_text_from_parent_iframe() == expected_strings["parent"]
+        nested_frames_page.get_text_from_parent_iframe() == desired_string_parent_frame
     ), error_message_step2b
     error_message_step2c = "the child iframe should contain text 'Child Iframe'"
     assert (
-        nested_frames_page.get_text_from_child_iframe() == expected_strings["child"]
+        nested_frames_page.get_text_from_child_iframe() == desired_string_nested_frame
     ), error_message_step2c
+
+    # STEP 3: Select Frames option in a left menu
+    # -> Page with Frames form is open.
+    # -> Message from upper frame is equal to the message from lower frame
+    left_menu.click_on_button_from_category(
+        button_name="Frames", category_name="Alerts, Frame"
+    )
+    frames_page = FramesPage()
+    error_message_step3a = "clicking on 'Frames' button in menu should result in a page with frames being open"
+    assert frames_page.is_open(), error_message_step3a
+
+    upper_frame_text = frames_page.get_text_from_upper_frame()
+    lower_frame_text = frames_page.get_text_from_lower_frame()
+    error_message_step3b = (
+        "text from upper frame should be equal to the text form bottom frame"
+    )
+    assert upper_frame_text == lower_frame_text, error_message_step3b
 
 
 if __name__ == "__main__":

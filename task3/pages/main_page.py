@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 import task3.framework.driver_utils
 import task3.framework.utils.test_data_utils
 from task3.framework.base_form import BaseForm
-from task3.framework.elements import BasicElement
+from task3.framework.elements import BasicElement, ButtonElement
 
 
 class MainPage(BaseForm):
@@ -12,6 +12,10 @@ class MainPage(BaseForm):
     ALERT_FRAME_WINDOW_BTN_LOC = (
         By.XPATH,
         "//div[contains(@class, 'top-card')]//h5[contains(text(),'Alerts')]",
+    )
+    ELEMENTS_BTN_LOC = (
+        By.XPATH,
+        "//div[contains(@class, 'top-card')]//h5[contains(text(),'Elements')]",
     )
 
     def __init__(self):
@@ -24,7 +28,11 @@ class MainPage(BaseForm):
         task3.framework.driver_utils.go_to_page(self.URL)
 
     def click_on_alert_frame_window_btn(self):
-        alerts_frame_window_btn = task3.framework.elements.ButtonElement(
-            self.ALERT_FRAME_WINDOW_BTN_LOC, "Alerts, Frame & Windows Button"
+        alerts_frame_window_btn = ButtonElement(
+            self.ALERT_FRAME_WINDOW_BTN_LOC, "'Alerts, Frame & Windows' card button"
         )
         alerts_frame_window_btn.click()
+
+    def click_on_elements_btn(self):
+        elements_btn = ButtonElement(self.ELEMENTS_BTN_LOC, "'elements' card button")
+        elements_btn.click()

@@ -8,10 +8,8 @@ from task3.framework.elements import (
     Alert,
 )
 from task3.framework.utils import test_data_utils
-from task3.pages.left_pannel_menu import LeftPanelMenu
 
 
-# TODO: AlertsPage should be divided into left-menu form and some nested subpage with main content
 class AlertsPage(BaseForm):
     UNIQUE_ELEMENT_LOC = (
         By.XPATH,
@@ -30,12 +28,6 @@ class AlertsPage(BaseForm):
         super().__init__(
             BasicElement(self.UNIQUE_ELEMENT_LOC, "alerts page unique header"),
             "alerts page",
-        )
-
-    def click_on_button_from_category_in_menu(self, button_name, category_name):
-        left_menu = LeftPanelMenu()
-        left_menu.click_on_button_from_category(
-            button_name=button_name, category_name=category_name
         )
 
     def is_alerts_form_open(self):
@@ -67,7 +59,7 @@ class AlertsPage(BaseForm):
         return not Alert().is_alert_present()
 
     def positive_confirmation_msg_exist(self):
-        confirmation_msg = BasicElementWithText(
+        confirmation_msg = BasicElement(
             self.POSITIVE_CONFIRMATION_MSG_LOC, "message after accepting confirm box"
         )
         return confirmation_msg.is_exists()

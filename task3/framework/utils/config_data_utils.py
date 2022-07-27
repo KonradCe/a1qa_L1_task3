@@ -33,7 +33,7 @@ def get_firefox_options_params() -> list:
     return options_params
 
 
-def get_firefox_profile_prefs() -> dict:
+def get_firefox_options_prefs() -> dict:
     with open(config_data_file_path) as f:
         j = json.load(f)
         profile_prefs = j["firefox_profile_prefs"]

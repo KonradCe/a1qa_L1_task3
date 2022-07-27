@@ -4,6 +4,7 @@ import task3.framework.driver_utils
 import task3.framework.utils.test_data_utils
 from task3.framework.base_form import BaseForm
 from task3.framework.elements import BasicElement, ButtonElement
+from task3.framework.utils import wait_utils
 
 
 class MainPage(BaseForm):

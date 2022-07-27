@@ -25,16 +25,16 @@ def test_case2(driver_setup_teardown):
     left_menu.click_on_button_from_category(
         button_name="Nested Frames", category_name="Frame"
     )
-
     nested_frames_page = NestedFramePage()
 
     error_message_step2a = "clicking on 'Nested Frames' button in menu should result in a page with nested frames being open"
-    assert nested_frames_page.is_open(), error_message_step2a
+    assert nested_frames_page.is_nested_frames_form_open(), error_message_step2a
 
     error_message_step2b = "the parent iframe should contain text 'Parent frame'"
     assert (
         nested_frames_page.get_text_from_parent_iframe() == desired_string_parent_frame
     ), error_message_step2b
+
     error_message_step2c = "the child iframe should contain text 'Child Iframe'"
     assert (
         nested_frames_page.get_text_from_child_iframe() == desired_string_nested_frame

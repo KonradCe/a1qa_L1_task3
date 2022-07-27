@@ -48,12 +48,9 @@ def create_firefox_driver():
     for param in firefox_options_params:
         options.add_argument(param)
 
-    firefox_profile = webdriver.FirefoxProfile()
-    firefox_profile_prefs: dict = config_utils.get_firefox_profile_prefs()
-    for pref, value in firefox_profile_prefs.items():
-        firefox_profile.set_preference(pref, value)
+    firefox_option_prefs: dict = config_utils.get_firefox_options_prefs()
+    for pref, value in firefox_option_prefs.items():
+        options.set_preference(pref, value)
 
-    firefox_driver = webdriver.Firefox(
-        service=service, options=options, firefox_profile=firefox_profile
-    )
+    firefox_driver = webdriver.Firefox(service=service, options=options)
     return firefox_driver

@@ -71,10 +71,15 @@ class InputElement(BaseElement):
 
 
 class SubMenu(BaseElement):
-    def click_on_button_with_text(self, btn_string):
-        super()._get_element().find_element(
-            By.XPATH, f"//span[contains(text(), '{btn_string}')]"
-        ).click()
+    def click_on_button_with_text(self, btn_string, wait=False):
+        button = (
+            super()
+            ._get_element()
+            .find_element(By.XPATH, f"//span[contains(text(), '{btn_string}')]")
+        )
+        if wait:
+            wait_utils.wait_for_element_to_be_clickable(button)
+        button.click()
 
 
 class Alert:
@@ -176,5 +181,7 @@ class TableRows:
             By.XPATH,
             f"//div[@role='rowgroup'][{row_to_delete+1}]//span[contains(@id, 'delete-record')]",
         )
-        delete_btn_in_specific_row = Swd.get_driver().find_element(*delete_btn_in_specific_row_loc)
+        delete_btn_in_specific_row = Swd.get_driver().find_element(
+            *delete_btn_in_specific_row_loc
+        )
         delete_btn_in_specific_row.click()

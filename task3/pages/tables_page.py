@@ -14,6 +14,7 @@ class WebTablesPage(BaseForm):
         By.XPATH,
         "//div[@class='main-header' and text()[contains(., 'Web Tables')]]",
     )
+    WEB_TABLE_FORM_LOC = (By.XPATH, "//div[@class='web-tables-wrapper']")
     ADD_RECORD_BTN_LOC = (By.XPATH, "//button[@id='addNewRecordButton']")
     TABLE_LOC = (By.XPATH, "//div[contains(@class, 'ReactTable')]")
     SEARCH_INPUT_LOC = (By.XPATH, "//input[@id='searchBox']")
@@ -23,6 +24,10 @@ class WebTablesPage(BaseForm):
             BasicElement(self.UNIQUE_ELEMENT_LOC, "alerts page unique header"),
             "alerts page",
         )
+
+    def web_pages_form_is_open(self):
+        tables_form = BasicElement(self.WEB_TABLE_FORM_LOC, "web tables wrapper")
+        return tables_form.is_exists()
 
     def click_add_btn(self):
         add_record_btn = ButtonElement(

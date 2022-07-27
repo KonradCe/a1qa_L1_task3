@@ -10,12 +10,19 @@ class NestedFramePage(BaseForm):
         "//div[@class='main-header' and text()[contains(., 'Nested Frames')]]",
     )
     PARENT_IFRAME_LOC = (By.XPATH, "//iframe[@id='frame1']")
+    NESTED_FRAMES_FORM_LOC = (By.XPATH, "//div[@id='framesWrapper']")
 
     def __init__(self):
         super().__init__(
             BasicElement(self.UNIQUE_ELEMENT_LOC, "nested frames unique header"),
             "page with nested frames",
         )
+
+    def is_nested_frames_form_open(self):
+        nested_frames_form = BasicElement(
+            self.NESTED_FRAMES_FORM_LOC, "form to test alerts"
+        )
+        return nested_frames_form.is_exists()
 
     def get_text_from_parent_iframe(self) -> str:
         parent_iframe = Iframe(self.PARENT_IFRAME_LOC, "Parent Iframe")

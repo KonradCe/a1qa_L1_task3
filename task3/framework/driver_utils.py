@@ -20,7 +20,7 @@ class SingletonWebDriver(metaclass=Singleton):
     __driver = None
 
     @classmethod
-    def get_driver(cls, browser_name="Chrome") -> webdriver:
+    def get_driver(cls, browser_name="chrome") -> webdriver:
         if cls.__driver is None:
             cls.__driver = task3.framework.browser_factory.create_driver(browser_name)
         return cls.__driver
@@ -53,3 +53,22 @@ def driver_quit():
 
 def unassing_driver():
     SingletonWebDriver.unassign_driver()
+
+
+def get_handles():
+    return SingletonWebDriver.get_driver().window_handles
+
+
+def switch_to_handle(handle):
+    SingletonWebDriver.get_driver().switch_to.window(handle)
+
+
+def switch_to_new_handle(old_handle_list):
+    new_handle_list = get_handles()
+    for possible_new_handle in new_handle_list:
+        if possible_new_handle not in old_handle_list:
+            switch_to_handle(possible_new_handle)
+
+
+def close_current_window():
+    SingletonWebDriver.get_driver().close()

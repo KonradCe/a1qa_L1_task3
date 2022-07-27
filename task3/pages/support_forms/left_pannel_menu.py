@@ -14,25 +14,25 @@ class LeftPanelMenu(BaseForm):
         )
 
     def click_on_button_from_category(self, button_name, category_name):
-        alerts_frame_windows_category_btn_loc = (
+        category_header_loc = (
             By.XPATH,
             f"//div[@class='header-text' and text()[contains(., '{category_name}')]]",
         )
-        alerts_frame_windows_element_list_loc = (
+        elements_in_category_list_loc = (
             By.XPATH,
             f"//div[@class='header-text' and text()[contains(., '{category_name}')]]//following::div[contains(@class, 'element-list')]",
         )
 
-        alerts_frame_windows_sub_menu = SubMenu(
-            alerts_frame_windows_element_list_loc, "'Alerts, Frame & Windows' sub menu"
+        sub_menu = SubMenu(
+            elements_in_category_list_loc, f"sub menu of '{category_name}' category"
         )
 
         # checks if category with desired button is collapsed, if true it clicks on it to expand the category
-        if not alerts_frame_windows_sub_menu.is_displayed():
+        if not sub_menu.is_displayed():
             category_btn = BasicElement(
-                alerts_frame_windows_category_btn_loc,
+                category_header_loc,
                 "'Alerts, Frame & Windows' category button",
             )
             category_btn.click()
 
-        alerts_frame_windows_sub_menu.click_on_button_with_text(button_name)
+        sub_menu.click_on_button_with_text(button_name, wait=True)

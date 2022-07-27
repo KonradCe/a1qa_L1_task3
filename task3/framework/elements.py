@@ -1,10 +1,16 @@
-from selenium.common.exceptions import NoAlertPresentException, NoSuchElementException, TimeoutException
+from selenium.common.exceptions import (
+    NoAlertPresentException,
+    NoSuchElementException,
+    TimeoutException,
+)
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
 from task3.framework.driver_utils import SingletonWebDriver as Swd
-from task3.framework.utils import wait_utils
 from task3.framework.utils import parse_utils
+from task3.framework.utils import wait_utils
+
 
 class BaseElement:
     def __init__(self, locator, name):
@@ -58,14 +64,10 @@ class InputElement(BaseElement):
 
     def clear(self):
         self._get_element().clear()
-
-
-# TODO: is this even needed?
-class BasicElementWithText(BasicElement):
-    def get_text(self):
-        btn_element = super()._get_element()
-        print(btn_element.text)
-        return btn_element.text
+        # as some input fields may be dynamically changing page depending on the input inside (like search box on tables
+        # page),sometimes clearing the filed is not sufficient 'refresh' the content - that is what code below is about
+        self._get_element().send_keys("a")
+        self._get_element().send_keys(Keys.BACK_SPACE)
 
 
 class SubMenu(BaseElement):
@@ -99,7 +101,14 @@ class Alert:
             return False
 
 
-class Iframe(BaseElement):
+class Iframe:
+    def __init__(self, locator, name):
+        self.locator = locator
+        self.name = name
+
+    def _get_element(self) -> WebElement:
+        return Swd.get_driver().find_element(*self.locator)
+
     def switch_into(self):
         iframe = self._get_element()
         Swd.get_driver().switch_to.frame(iframe)
@@ -122,32 +131,50 @@ class Iframe(BaseElement):
         return text_from_nested_iframe
 
 
-class WebTable:
-    ROWS_LOCATOR = (By.XPATH, "//div[@role='rowgroup']")
+class TableRows:
+    ROWS_LOC = (By.XPATH, "//div[@role='rowgroup']")
+    DELETE_BTN_LOC = (By.XPATH, "//span[contains(@id, 'delete-record')]")
 
-    def __init__(self, table_locator, name):
-        self.locator = table_locator
+    def __init__(self, name):
         self.name = name
 
     def __get_rows(self):
-        table_element = Swd.get_driver().find_element(*self.locator)
-        rows: list[WebElement] = table_element.find_elements(*self.ROWS_LOCATOR)
-        return rows
+        return Swd.get_driver().find_elements(*self.ROWS_LOC)
 
-    # TODO: change this to find_row_with_user func which will return row with user or None if there is no such row
-    def is_user_in_table(self, user: dict):
+    def __get_row_nb(self, row_nb):
+        specific_row_loc = (By.XPATH, f"//div[@role='rowgroup'][{row_nb+1}]")
+        return Swd.get_driver().find_element(*specific_row_loc)
+
+    def is_user_in_table(self, user):
+        if self.get_row_nb_with_user(user) != -1:
+            return True
+        else:
+            return False
+
+    def get_row_nb_with_user(self, user) -> int:
         rows = self.__get_rows()
-        for row in rows:
-            if parse_utils.table_row_is_empty(row.text):
-                continue
-            parsed_row = parse_utils.table_row_string_to_list(row.text)
-            if self.is_user_in_parsed_row(parsed_row, user):
-                return True
+        for row_nb, row in enumerate(rows):
+            if not parse_utils.table_row_is_empty(row.text):
+                parsed_row = parse_utils.table_row_string_to_list(row.text)
+                if set(parsed_row) == set(
+                    user.values()
+                ):  # this makes sure that all the values match
+                    return row_nb
+        return -1
 
-        return False
+    def get_number_of_records(self):
+        # every record in table gets its own delete button - so the number of records is the same as number of delete button
+        # disclaimer: this only works, when all the records in the table are displayed on the current page
+        return len(Swd.get_driver().find_elements(*self.DELETE_BTN_LOC))
 
-    def is_user_in_parsed_row(self, parsed_row, user):
-        return set(parsed_row) == set(user.values())
-
-    # a way to determine records in table - count the buttons
-
+    def delete_user(self, user):
+        row_to_delete = self.get_row_nb_with_user(user)
+        if row_to_delete == -1:
+            # TODO: raise an exception or maybe log a warning here
+            pass
+        delete_btn_in_specific_row_loc = (
+            By.XPATH,
+            f"//div[@role='rowgroup'][{row_to_delete+1}]//span[contains(@id, 'delete-record')]",
+        )
+        delete_btn_in_specific_row = Swd.get_driver().find_element(*delete_btn_in_specific_row_loc)
+        delete_btn_in_specific_row.click()

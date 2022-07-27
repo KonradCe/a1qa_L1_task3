@@ -1,9 +1,12 @@
 from selenium.webdriver.common.by import By
 
 from task3.framework.base_form import BaseForm
-from task3.framework.elements import BasicElement, ButtonElement, WebTable, InputElement
-import task3.framework.utils.wait_utils as wait_utils
-from task3.pages.support_forms.registration_form import RegistrationForm
+from task3.framework.elements import (
+    BasicElement,
+    ButtonElement,
+    TableRows,
+    InputElement,
+)
 
 
 class WebTablesPage(BaseForm):
@@ -29,8 +32,10 @@ class WebTablesPage(BaseForm):
 
     def confirm_user_in_table(self, user):
         self.enter_text_into_table_searchbox(user["email"])
-        web_table = WebTable(self.TABLE_LOC, "table on 'Web Tables' page")
-        return web_table.is_user_in_table(user)
+        table = TableRows("Table on 'Web Tables' page")
+        result = table.is_user_in_table(user)
+        self.clear_searchbox()
+        return result
 
     def enter_text_into_table_searchbox(self, text):
         searchbox = InputElement(
@@ -46,5 +51,11 @@ class WebTablesPage(BaseForm):
         searchbox.clear()
 
     def delete_user_entry(self, user):
-        pass
+        self.enter_text_into_table_searchbox(user["email"])
+        table = TableRows("Table on 'Web Tables' page")
+        table.delete_user(user)
+        self.clear_searchbox()
 
+    def get_number_of_records(self):
+        table = TableRows("Table on 'Web Tables' page")
+        return table.get_number_of_records()

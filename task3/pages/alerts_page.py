@@ -3,7 +3,6 @@ from selenium.webdriver.common.by import By
 from task3.framework.base_form import BaseForm
 from task3.framework.elements import (
     BasicElement,
-    BasicElementWithText,
     ButtonElement,
     Alert,
 )

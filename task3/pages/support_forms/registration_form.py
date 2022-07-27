@@ -1,8 +1,7 @@
 from selenium.webdriver.common.by import By
 
 from task3.framework.base_form import BaseForm
-from task3.framework.elements import BasicElement, InputElement, ButtonElement, WebTable
-import task3.framework.utils.wait_utils as wait_utils
+from task3.framework.elements import BasicElement, InputElement, ButtonElement
 
 
 class RegistrationForm(BaseForm):

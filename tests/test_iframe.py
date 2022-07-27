@@ -1,8 +1,8 @@
 from task3.framework.utils.logger_utils import log_info
 from task3.pages.frames_page import FramesPage
 from task3.pages.main_page import MainPage
-from task3.pages.support_forms.left_pannel_menu import LeftPanelMenu
 from task3.pages.nested_frame_page import NestedFramePage
+from task3.pages.support_forms.left_pannel_menu import LeftPanelMenu
 
 
 def test_case2(driver_setup_teardown):

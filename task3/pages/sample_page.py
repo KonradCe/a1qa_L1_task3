@@ -10,5 +10,5 @@ class SamplePage(BaseForm):
     def __init__(self):
         super().__init__(
             BasicElement(self.UNIQUE_ELEMENT_LOC, "sample page unique header"),
-            "smaple page",
+            "sample page",
         )

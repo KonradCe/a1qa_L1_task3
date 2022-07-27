@@ -13,6 +13,10 @@ def logger_setup():
     )
 
 
+def log_debug(message):
+    logging.debug(message)
+
+
 def log_info(message):
     logging.info(message)
 

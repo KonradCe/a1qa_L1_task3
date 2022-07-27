@@ -1,0 +1,8 @@
+{
+  "filename": "my_log.log",
+  "level": 20,
+  "encoding": "utf-8",
+  "force": true,
+  "format": "%(asctime)s\t%(levelname)s\t%(message)s",
+  "datefmt": "%Y-%m-%d %H:%M:%S"
+}

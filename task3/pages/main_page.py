@@ -4,7 +4,7 @@ import task3.framework.driver_utils
 import task3.framework.utils.test_data_utils
 from task3.framework.base_form import BaseForm
 from task3.framework.elements import BasicElement, ButtonElement
-from task3.framework.utils import wait_utils
+from task3.framework.utils.logger_utils import log_info
 
 
 class MainPage(BaseForm):
@@ -26,14 +26,17 @@ class MainPage(BaseForm):
         )
 
     def go_to_main_page(self):
+        log_info(f"{self.page_name} - going to {self.page_name}")
         task3.framework.driver_utils.go_to_page(self.URL)
 
     def click_on_alert_frame_window_btn(self):
         alerts_frame_window_btn = ButtonElement(
             self.ALERT_FRAME_WINDOW_BTN_LOC, "'Alerts, Frame & Windows' card button"
         )
+        log_info(f"{self.page_name} - clicking on {alerts_frame_window_btn.name}")
         alerts_frame_window_btn.click()
 
     def click_on_elements_btn(self):
         elements_btn = ButtonElement(self.ELEMENTS_BTN_LOC, "'elements' card button")
+        log_info(f"{self.page_name} - clicking on {elements_btn.name}")
         elements_btn.click()

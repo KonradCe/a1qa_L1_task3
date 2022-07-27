@@ -1,5 +1,5 @@
 {
-  "browser": "firefox",
+  "browser": "chrome",
   "chrome_params": ["--incognito", "--lang=en-US", "--start-maximized"],
   "firefox_options_params": ["-private"],
   "firefox_profile_prefs": {

@@ -30,7 +30,7 @@ def test_case1(driver_setup_teardown):
     error_message_step2 = (
         "clicking on alerts button in the menu should show form to test alerts"
     )
-    assert alerts_page.is_alerts_form_open(), error_message_step2
+    assert alerts_page.is_open(), error_message_step2
 
     # STEP 3: Click on 'Click Button to see alert' button
     # -> Alert with text "You clicked a button" is open
@@ -43,7 +43,7 @@ def test_case1(driver_setup_teardown):
 
     # STEP 4: Click OK button
     # -> alert has closed
-    log_info("Click OK button")
+    log_info("STEP 4: Click OK button")
     alerts_page.accept_alert()
     error_message_step4 = "Accepting the alert should cause alert to close"
     assert alerts_page.alert_is_closed(), error_message_step4

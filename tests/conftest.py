@@ -1,20 +1,24 @@
 import pytest
 
-import task3.framework.driver_utils as driver_utils
-import task3.framework.utils.config_data_utils as config_utils
-import task3.framework.utils.logger_utils
+from task3.framework import driver_utils
 from task3.framework.driver_utils import SingletonWebDriver as Swd
+from task3.framework.utils import config_data_utils
+from task3.framework.utils import logger_utils
 
 
 @pytest.fixture()
 def driver_setup_teardown():
-    browser_of_choice = config_utils.get_browser_of_choice()
+    browser_of_choice = config_data_utils.get_browser_of_choice()
+    logger_utils.log_info(f"browser of choice: {browser_of_choice}")
     Swd.get_driver(browser_of_choice)
+    logger_utils.log_info("driver setup finished")
     yield
     driver_utils.driver_quit()
     driver_utils.unassing_driver()
+    logger_utils.log_info("driver teardown finished")
 
 
 @pytest.fixture(scope="session", autouse=True)
 def logger_setup():
-    task3.framework.utils.logger_utils.logger_setup()
+    logger_utils.logger_setup()
+    logger_utils.log_info("logger setup finished")

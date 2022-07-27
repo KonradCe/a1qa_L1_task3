@@ -1,7 +1,8 @@
 from selenium.webdriver.common.by import By
 
 from task3.framework.base_form import BaseForm
-from task3.framework.elements import BasicElement, ButtonElement
+from task3.framework.elements import BasicElement
+from task3.framework.utils.logger_utils import log_info
 
 
 class LinksPage(BaseForm):
@@ -18,4 +19,5 @@ class LinksPage(BaseForm):
         home_link = BasicElement(
             self.HOME_LINK_LOC, "link to main page (from 'Links' page)"
         )
+        log_info(f"{self.page_name} - clicking on {home_link.name}")
         home_link.click()

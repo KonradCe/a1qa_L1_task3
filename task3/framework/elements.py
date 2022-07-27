@@ -10,6 +10,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from task3.framework.driver_utils import SingletonWebDriver as Swd
 from task3.framework.utils import parse_utils
 from task3.framework.utils import wait_utils
+from task3.framework.utils.logger_utils import log_info, log_debug, log_warning
 
 
 class BaseElement:
@@ -116,19 +117,23 @@ class Iframe:
 
     def switch_into(self):
         iframe = self._get_element()
+        log_debug(f"{self.name} - switching into the frame")
         Swd.get_driver().switch_to.frame(iframe)
         return iframe
 
     def switch_out_of(self):
+        log_debug(f"{self.name} - switching out of the frame")
         Swd.get_driver().switch_to.default_content()
 
     def get_text(self):
+        log_info(f"{self.name} - getting text from the frame")
         self.switch_into()
         iframe_text = Swd.get_driver().find_element(By.XPATH, "//body").text
         self.switch_out_of()
         return iframe_text
 
     def get_text_from_nested_iframe(self):
+        log_debug(f"{self.name} - getting text from nested frame")
         self.switch_into()
         nested_iframe = Iframe((By.XPATH, "//iframe"), "nested iframe")
         text_from_nested_iframe = nested_iframe.get_text()
@@ -175,8 +180,7 @@ class TableRows:
     def delete_user(self, user):
         row_to_delete = self.get_row_nb_with_user(user)
         if row_to_delete == -1:
-            # TODO: raise an exception or maybe log a warning here
-            pass
+            log_warning(f"No user ({user['first_name']} {user['last_name']} in table)")
         delete_btn_in_specific_row_loc = (
             By.XPATH,
             f"//div[@role='rowgroup'][{row_to_delete+1}]//span[contains(@id, 'delete-record')]",

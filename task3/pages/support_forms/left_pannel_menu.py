@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 from task3.framework.base_form import BaseForm
 from task3.framework.elements import BasicElement, SubMenu
+from task3.framework.utils.logger_utils import log_info
 
 
 class LeftPanelMenu(BaseForm):
@@ -13,7 +14,11 @@ class LeftPanelMenu(BaseForm):
             "left menu panel",
         )
 
+    # TODO: hard to read method - refactor?
     def click_on_button_from_category(self, button_name, category_name):
+        log_info(
+            f"{self.page_name} - clicking on {button_name} in {category_name} category"
+        )
         category_header_loc = (
             By.XPATH,
             f"//div[@class='header-text' and text()[contains(., '{category_name}')]]",

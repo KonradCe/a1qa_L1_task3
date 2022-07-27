@@ -7,6 +7,7 @@ from task3.framework.elements import (
     TableRows,
     InputElement,
 )
+from task3.framework.utils.logger_utils import log_info, log_debug
 
 
 class WebTablesPage(BaseForm):
@@ -33,9 +34,13 @@ class WebTablesPage(BaseForm):
         add_record_btn = ButtonElement(
             self.ADD_RECORD_BTN_LOC, "add records to the table button"
         )
+        log_info(f"{self.page_name} - clicking on {add_record_btn.name}")
         add_record_btn.click()
 
     def confirm_user_in_table(self, user):
+        log_info(
+            f"{self.page_name} - confirming user record ({user['first_name']} {user['last_name']}) in table"
+        )
         self.enter_text_into_table_searchbox(user["email"])
         table = TableRows("Table on 'Web Tables' page")
         result = table.is_user_in_table(user)
@@ -43,6 +48,7 @@ class WebTablesPage(BaseForm):
         return result
 
     def enter_text_into_table_searchbox(self, text):
+        log_info(f"{self.page_name} - entering text (={text}) into searchbox")
         searchbox = InputElement(
             self.SEARCH_INPUT_LOC, "searchbox input on 'Web Tables' page"
         )
@@ -50,17 +56,22 @@ class WebTablesPage(BaseForm):
         searchbox.send_text(text)
 
     def clear_searchbox(self):
+        log_debug(f"{self.page_name} - removing input from searchbox")
         searchbox = InputElement(
             self.SEARCH_INPUT_LOC, "searchbox input on 'Web Tables' page"
         )
         searchbox.clear()
 
     def delete_user_entry(self, user):
+        log_info(
+            f"{self.page_name} - deleting user record ({user['first_name']} {user['last_name']}) from table"
+        )
         self.enter_text_into_table_searchbox(user["email"])
         table = TableRows("Table on 'Web Tables' page")
         table.delete_user(user)
         self.clear_searchbox()
 
     def get_number_of_records(self):
+        log_info(f"{self.page_name} - getting number of records in table")
         table = TableRows("Table on 'Web Tables' page")
         return table.get_number_of_records()

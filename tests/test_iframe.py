@@ -20,7 +20,9 @@ def test_case2(driver_setup_teardown):
     # STEP 2: Click on Alerts, Frame & Windows button; In a menu click Nested Frames button
     # -> Page with Nested Frames form is open.
     # -> There are messages "Parent frame" & "Child Iframe" present on page
+    log_info("STEP 2: Click on Alerts, Frame & Windows button...")
     main_page.click_on_alert_frame_window_btn()
+    log_info("STEP 2: ...In a menu click Nested Frames button")
     left_menu = LeftPanelMenu()
     left_menu.click_on_button_from_category(
         button_name="Nested Frames", category_name="Frame"
@@ -28,7 +30,7 @@ def test_case2(driver_setup_teardown):
     nested_frames_page = NestedFramePage()
 
     error_message_step2a = "clicking on 'Nested Frames' button in menu should result in a page with nested frames being open"
-    assert nested_frames_page.is_nested_frames_form_open(), error_message_step2a
+    assert nested_frames_page.is_open(), error_message_step2a
 
     error_message_step2b = "the parent iframe should contain text 'Parent frame'"
     assert (
@@ -43,6 +45,7 @@ def test_case2(driver_setup_teardown):
     # STEP 3: Select Frames option in a left menu
     # -> Page with Frames form is open.
     # -> Message from upper frame is equal to the message from lower frame
+    log_info("STEP 3: Select Frames option in a left menu")
     left_menu.click_on_button_from_category(
         button_name="Frames", category_name="Alerts, Frame"
     )

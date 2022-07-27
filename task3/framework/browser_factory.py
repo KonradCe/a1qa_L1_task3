@@ -4,7 +4,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
-import task3.framework.utils.config_data_utils as config_utils
+from task3.framework.utils import config_data_utils
 
 
 def create_driver(browser_name):
@@ -28,7 +28,7 @@ def create_driver(browser_name):
 
 def create_chrome_driver():
     options = webdriver.ChromeOptions()
-    chrome_params = config_utils.get_chrome_params()
+    chrome_params = config_data_utils.get_chrome_params()
     for p in chrome_params:
         options.add_argument(p)
     chrome_driver = webdriver.Chrome(
@@ -44,11 +44,11 @@ def create_firefox_driver():
 
     options = webdriver.FirefoxOptions()
 
-    firefox_options_params = config_utils.get_firefox_options_params()
+    firefox_options_params = config_data_utils.get_firefox_options_params()
     for param in firefox_options_params:
         options.add_argument(param)
 
-    firefox_option_prefs: dict = config_utils.get_firefox_options_prefs()
+    firefox_option_prefs: dict = config_data_utils.get_firefox_options_prefs()
     for pref, value in firefox_option_prefs.items():
         options.set_preference(pref, value)
 

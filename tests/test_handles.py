@@ -1,4 +1,4 @@
-from task3.framework import driver_utils
+from task3.framework.driver_utils import SingletonWebDriver as Swd
 from task3.framework.utils import wait_utils
 from task3.framework.utils.logger_utils import log_info
 from task3.pages.links_page import LinksPage
@@ -31,15 +31,15 @@ def test_case4(driver_setup_teardown):
     windows_page = BrowserWindowsPage()
     error_message_step2 = "clicking on 'Browser Windows' button in the menu should open 'Browser Windows' page"
     assert windows_page.is_open(), error_message_step2
-    windows_page_handle = driver_utils.get_current_handle()
+    windows_page_handle = Swd.get_current_handle()
 
     # STEP 3: Click on New Tab button
     # -> New tab with sample page is open
     log_info("STEP 3: Click on New Tab button")
-    current_handle_list = driver_utils.get_handles()
+    current_handle_list = Swd.get_handles()
     windows_page.click_new_tab_btn()
     wait_utils.wait_for_new_window_to_open(current_handle_list)
-    driver_utils.switch_to_new_handle(current_handle_list)
+    Swd.switch_to_new_handle(current_handle_list)
     sample_page = SamplePage()
     error_message_step3 = "clicking on 'new tab' button should result in opening a new tab with a sample page"
     assert sample_page.is_open(), error_message_step3
@@ -47,8 +47,8 @@ def test_case4(driver_setup_teardown):
     # STEP 4: Close current tab
     # -> Page with Browser Windows form is open
     log_info("STEP 4: Close current tab")
-    driver_utils.close_current_window()
-    driver_utils.switch_to_handle(windows_page_handle)
+    Swd.close_current_window()
+    Swd.switch_to_handle(windows_page_handle)
     error_message_step4 = "after closing tab with 'sample page' we should be back in 'Browser Windows' page"
     assert windows_page.is_open(), error_message_step4
 
@@ -61,15 +61,15 @@ def test_case4(driver_setup_teardown):
     links_page = LinksPage()
     error_message_step5 = "clicking on links page in left panel menu should result in links page being open"
     assert links_page.is_open(), error_message_step5
-    links_page_handle = driver_utils.get_current_handle()
+    links_page_handle = Swd.get_current_handle()
 
     # STEP 6: Click on Home link
     # -> New tab with main page is open
     log_info("STEP 6: Click on Home link")
-    current_handle_list = driver_utils.get_handles()
+    current_handle_list = Swd.get_handles()
     links_page.click_on_home_link()
     wait_utils.wait_for_new_window_to_open(current_handle_list)
-    driver_utils.switch_to_new_handle(current_handle_list)
+    Swd.switch_to_new_handle(current_handle_list)
     main_page = MainPage()
     error_message_step6 = (
         "clicking on Home link in 'Links' page should open 'Main Page' in a new tab"
@@ -79,7 +79,7 @@ def test_case4(driver_setup_teardown):
     # STEP 7: Resume to previous tab
     # -> Page with Links form is open
     log_info("STEP 7: Resume to previous tab")
-    driver_utils.switch_to_handle(links_page_handle)
+    Swd.switch_to_handle(links_page_handle)
     error_message_step7 = (
         "switching back to 'Links' page tab should result in 'Links' page being open"
     )

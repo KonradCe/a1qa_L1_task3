@@ -1,7 +1,9 @@
 from selenium.webdriver.common.by import By
 
 from task3.framework.base_form import BaseForm
-from task3.framework.elements import BasicElement, InputElement, ButtonElement
+from task3.framework.elements.basic_element import BasicElement
+from task3.framework.elements.button_element import ButtonElement
+from task3.framework.elements.input_element import InputElement
 
 
 class RegistrationForm(BaseForm):

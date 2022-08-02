@@ -3,9 +3,8 @@ import random
 import string
 from pathlib import Path
 
-# TODO: convert this path to the one working regardless of the current working directory
-test_data_file_path = Path(Path.cwd(), "task3/data/test_data.json")
-user_data_file_path = Path(Path.cwd(), "task3/data/user_data.json")
+test_data_file_path = Path(__file__).resolve().parents[2] / "data" / "test_data.json"
+user_data_file_path = Path(__file__).resolve().parents[2] / "data" / "user_data.json"
 
 
 def get_main_page_url() -> str:

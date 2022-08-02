@@ -1,6 +1,5 @@
 import pytest
 
-from task3.framework import driver_utils
 from task3.framework.driver_utils import SingletonWebDriver as Swd
 from task3.framework.utils import config_data_utils
 from task3.framework.utils import logger_utils
@@ -13,8 +12,8 @@ def driver_setup_teardown():
     Swd.get_driver(browser_of_choice)
     logger_utils.log_info("driver setup finished")
     yield
-    driver_utils.driver_quit()
-    driver_utils.unassing_driver()
+    Swd.driver_quit()
+    Swd.unassign_driver()
     logger_utils.log_info("driver teardown finished")
 
 

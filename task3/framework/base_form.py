@@ -1,4 +1,4 @@
-from task3.framework.elements import BaseElement
+from task3.framework.elements.base_element import BaseElement
 from task3.framework.utils import wait_utils
 from task3.framework.utils.logger_utils import log_info, log_debug
 

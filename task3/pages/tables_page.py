@@ -1,12 +1,10 @@
 from selenium.webdriver.common.by import By
 
 from task3.framework.base_form import BaseForm
-from task3.framework.elements import (
-    BasicElement,
-    ButtonElement,
-    TableRows,
-    InputElement,
-)
+from task3.framework.elements.basic_element import BasicElement
+from task3.framework.elements.button_element import ButtonElement
+from task3.framework.elements.input_element import InputElement
+from task3.framework.elements.table_rows import TableRows
 from task3.framework.utils.logger_utils import log_info, log_debug
 
 
@@ -75,3 +73,4 @@ class WebTablesPage(BaseForm):
         log_info(f"{self.page_name} - getting number of records in table")
         table = TableRows("Table on 'Web Tables' page")
         return table.get_number_of_records()
+

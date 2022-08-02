@@ -1,11 +1,9 @@
 from selenium.webdriver.common.by import By
 
 from task3.framework.base_form import BaseForm
-from task3.framework.elements import (
-    BasicElement,
-    ButtonElement,
-    Alert,
-)
+from task3.framework.elements.alert import Alert
+from task3.framework.elements.basic_element import BasicElement
+from task3.framework.elements.button_element import ButtonElement
 from task3.framework.utils import test_data_utils
 from task3.framework.utils.logger_utils import log_info
 

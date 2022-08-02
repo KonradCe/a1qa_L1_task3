@@ -1,8 +1,9 @@
 import json
 from pathlib import Path
 
-# TODO: convert this path to the one working regardless of the current working directory
-config_data_file_path = Path(Path.cwd(), "task3/data/config_data.json")
+config_data_file_path = (
+    Path(__file__).resolve().parents[2] / "data" / "config_data.json"
+)
 
 
 def get_explicit_wait_time():
@@ -38,3 +39,8 @@ def get_firefox_options_prefs() -> dict:
         j = json.load(f)
         profile_prefs = j["firefox_profile_prefs"]
     return profile_prefs
+
+
+if __name__ == "__main__":
+    print("current path")
+    print(config_data_file_path)

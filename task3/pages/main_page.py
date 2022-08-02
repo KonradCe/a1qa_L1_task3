@@ -1,9 +1,10 @@
 from selenium.webdriver.common.by import By
 
-import task3.framework.driver_utils
 import task3.framework.utils.test_data_utils
 from task3.framework.base_form import BaseForm
-from task3.framework.elements import BasicElement, ButtonElement
+from task3.framework.driver_utils import SingletonWebDriver as Swd
+from task3.framework.elements.basic_element import BasicElement
+from task3.framework.elements.button_element import ButtonElement
 from task3.framework.utils.logger_utils import log_info
 
 
@@ -27,7 +28,7 @@ class MainPage(BaseForm):
 
     def go_to_main_page(self):
         log_info(f"{self.page_name} - going to {self.page_name}")
-        task3.framework.driver_utils.go_to_page(self.URL)
+        Swd.go_to_page(self.URL)
 
     def click_on_alert_frame_window_btn(self):
         alerts_frame_window_btn = ButtonElement(

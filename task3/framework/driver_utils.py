@@ -1,86 +1,78 @@
 from selenium import webdriver
 
-import task3.framework.browser_factory
-from task3.framework.utils.logger_utils import log_info, log_debug
+from task3.framework.browser_factory import BrowserFactory
+from task3.framework.utils.logger_utils import log_info
 
 
-class Singleton(type):
-    def __init__(self, *args, **kwargs):
-        self.__instance = None
-        super().__init__(*args, **kwargs)
+class SingletonMeta(type):
+    _instances = {}
 
-    def __call__(self, *args, **kwargs):
-        if self.__instance is None:
-            self.__instance = super().__call__(*args, **kwargs)
-            return self.__instance
-        else:
-            return self.__instance
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
 
 
-class SingletonWebDriver(metaclass=Singleton):
+class SingletonWebDriver(metaclass=SingletonMeta):
     __driver = None
 
     @classmethod
     def get_driver(cls, browser_name="chrome") -> webdriver:
         if cls.__driver is None:
-            cls.__driver = task3.framework.browser_factory.create_driver(browser_name)
+            cls.__driver = BrowserFactory().create_driver(browser_name)
         return cls.__driver
 
     @classmethod
     def unassign_driver(cls):
         cls.__driver = None
 
+    @classmethod
+    def go_to_page(cls, url):
+        log_info(f"driver - go to page {url}")
+        cls.get_driver().get(url)
 
-def go_to_page(url):
-    log_info(f"driver - go to page {url}")
-    SingletonWebDriver.get_driver().get(url)
+    @classmethod
+    def go_back(cls):
+        log_info(f"driver - navigate back")
+        cls.get_driver().back()
 
+    @classmethod
+    def go_forward(cls):
+        log_info(f"driver - navigate forward")
+        cls.get_driver().forward()
 
-def go_back():
-    log_info(f"driver - navigate back")
-    SingletonWebDriver.get_driver().back()
+    @classmethod
+    def refresh_page(cls):
+        log_info(f"driver - refresh page")
+        cls.get_driver().refresh()
 
+    @classmethod
+    def driver_quit(cls):
+        log_info(f"driver - quit")
+        cls.get_driver().quit()
 
-def go_forward():
-    log_info(f"driver - navigate forward")
-    SingletonWebDriver.get_driver().forward()
+    @classmethod
+    def get_current_handle(cls):
+        return cls.get_driver().current_window_handle
 
+    @classmethod
+    def get_handles(cls):
+        return cls.get_driver().window_handles
 
-def refresh_page():
-    log_info(f"driver - refresh page")
-    SingletonWebDriver.get_driver().refresh()
+    @classmethod
+    def switch_to_handle(cls, handle):
+        log_info(f"driver - switching windows")
+        cls.get_driver().switch_to.window(handle)
 
+    @classmethod
+    def switch_to_new_handle(cls, old_handle_list):
+        new_handle_list = cls.get_handles()
+        for possible_new_handle in new_handle_list:
+            if possible_new_handle not in old_handle_list:
+                cls.switch_to_handle(possible_new_handle)
 
-def driver_quit():
-    log_info(f"driver - quit")
-    SingletonWebDriver.get_driver().quit()
-
-
-def unassing_driver():
-    log_debug(f"driver - set driver variable to null")
-    SingletonWebDriver.unassign_driver()
-
-
-def get_current_handle():
-    return SingletonWebDriver.get_driver().current_window_handle
-
-
-def get_handles():
-    return SingletonWebDriver.get_driver().window_handles
-
-
-def switch_to_handle(handle):
-    log_info(f"driver - switching windows")
-    SingletonWebDriver.get_driver().switch_to.window(handle)
-
-
-def switch_to_new_handle(old_handle_list):
-    new_handle_list = get_handles()
-    for possible_new_handle in new_handle_list:
-        if possible_new_handle not in old_handle_list:
-            switch_to_handle(possible_new_handle)
-
-
-def close_current_window():
-    log_info(f"driver - close current window")
-    SingletonWebDriver.get_driver().close()
+    @classmethod
+    def close_current_window(cls):
+        log_info(f"driver - close current window")
+        cls.get_driver().close()

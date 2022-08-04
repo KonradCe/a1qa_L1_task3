@@ -2,7 +2,7 @@ from selenium.common import TimeoutException, NoSuchElementException
 from selenium.webdriver.remote.webelement import WebElement
 
 from task3.framework.driver_utils import SingletonWebDriver as Swd
-from task3.framework.utils import wait_utils
+from task3.framework.utils.wait_utils import WaitUtils
 
 
 class BaseElement:
@@ -26,12 +26,12 @@ class BaseElement:
         return bool(Swd.get_driver().find_elements(*self.locator))
 
     def wait_for_element(self):
-        return wait_utils.wait_for_element_to_be_present_and_visible(self.locator)
+        return WaitUtils.wait_for_element_to_be_present_and_visible(self.locator)
 
     def is_gone(self, wait=False):
         if wait:
             try:
-                wait_utils.wait_for_element_to_be_gone(self.locator)
+                WaitUtils.wait_for_element_to_be_gone(self.locator)
             except TimeoutException:
                 return False
         try:

@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 from task3.framework.elements.base_element import BaseElement
-from task3.framework.utils import wait_utils
+from task3.framework.utils.wait_utils import WaitUtils
 
 
 class SubMenu(BaseElement):
@@ -12,5 +12,5 @@ class SubMenu(BaseElement):
             .find_element(By.XPATH, f"//span[contains(text(), '{btn_string}')]")
         )
         if wait:
-            wait_utils.wait_for_element_to_be_clickable(button)
+            WaitUtils.wait_for_element_to_be_clickable(button)
         button.click()

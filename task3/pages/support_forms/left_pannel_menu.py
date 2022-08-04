@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from task3.framework.base_form import BaseForm
 from task3.framework.elements.basic_element import BasicElement
 from task3.framework.elements.sub_menu import SubMenu
-from task3.framework.utils.logger_utils import log_info
+from task3.framework.utils.logger_utils import LoggerUtils
 
 
 class LeftPanelMenu(BaseForm):
@@ -17,7 +17,7 @@ class LeftPanelMenu(BaseForm):
 
     # TODO: hard to read method - refactor?
     def click_on_button_from_category(self, button_name, category_name):
-        log_info(
+        LoggerUtils.log_info(
             f"{self.page_name} - clicking on {button_name} in {category_name} category"
         )
         category_header_loc = (

@@ -1,12 +1,12 @@
 from selenium.common import NoAlertPresentException
 
 from task3.framework.driver_utils import SingletonWebDriver as Swd
-from task3.framework.utils import wait_utils
+from task3.framework.utils.wait_utils import WaitUtils
 
 
 class Alert:
     def __get_alert(self):
-        return wait_utils.wait_for_alert()
+        return WaitUtils.wait_for_alert()
 
     def accept(self):
         self.__get_alert().accept()

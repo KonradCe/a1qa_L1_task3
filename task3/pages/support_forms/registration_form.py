@@ -19,7 +19,7 @@ class RegistrationForm(BaseForm):
 
     def __init__(self):
         # the wait is here to ensure the element has appeared on screen
-        # wait_utils.wait_for_element_to_be_present_and_visible(self.UNIQUE_ELEMENT_LOC)
+        # WaitUtils.wait_for_element_to_be_present_and_visible(self.UNIQUE_ELEMENT_LOC)
         super().__init__(
             BasicElement(
                 self.UNIQUE_ELEMENT_LOC,

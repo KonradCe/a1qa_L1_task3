@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from task3.framework.base_form import BaseForm
 from task3.framework.elements.basic_element import BasicElement
 from task3.framework.elements.button_element import ButtonElement
-from task3.framework.utils.logger_utils import log_info
+from task3.framework.utils.logger_utils import LoggerUtils
 
 
 class BrowserWindowsPage(BaseForm):
@@ -21,5 +21,5 @@ class BrowserWindowsPage(BaseForm):
 
     def click_new_tab_btn(self):
         new_tab_btn = ButtonElement(self.NEW_TAB_BTN_LOC, "new tab button")
-        log_info(f"{self.page_name} - clicking on {new_tab_btn.name}")
+        LoggerUtils.log_info(f"{self.page_name} - clicking on {new_tab_btn.name}")
         new_tab_btn.click()

@@ -1,7 +1,7 @@
 from selenium import webdriver
 
+from task3.framework.utils.logger_utils import LoggerUtils
 from task3.framework.browser_factory import BrowserFactory
-from task3.framework.utils.logger_utils import log_info
 
 
 class SingletonMeta(type):
@@ -29,27 +29,27 @@ class SingletonWebDriver(metaclass=SingletonMeta):
 
     @classmethod
     def go_to_page(cls, url):
-        log_info(f"driver - go to page {url}")
+        LoggerUtils.log_info(f"driver - go to page {url}")
         cls.get_driver().get(url)
 
     @classmethod
     def go_back(cls):
-        log_info(f"driver - navigate back")
+        LoggerUtils.log_info(f"driver - navigate back")
         cls.get_driver().back()
 
     @classmethod
     def go_forward(cls):
-        log_info(f"driver - navigate forward")
+        LoggerUtils.log_info(f"driver - navigate forward")
         cls.get_driver().forward()
 
     @classmethod
     def refresh_page(cls):
-        log_info(f"driver - refresh page")
+        LoggerUtils.log_info(f"driver - refresh page")
         cls.get_driver().refresh()
 
     @classmethod
     def driver_quit(cls):
-        log_info(f"driver - quit")
+        LoggerUtils.log_info(f"driver - quit")
         cls.get_driver().quit()
 
     @classmethod
@@ -62,7 +62,7 @@ class SingletonWebDriver(metaclass=SingletonMeta):
 
     @classmethod
     def switch_to_handle(cls, handle):
-        log_info(f"driver - switching windows")
+        LoggerUtils.log_info(f"driver - switching windows")
         cls.get_driver().switch_to.window(handle)
 
     @classmethod
@@ -74,5 +74,5 @@ class SingletonWebDriver(metaclass=SingletonMeta):
 
     @classmethod
     def close_current_window(cls):
-        log_info(f"driver - close current window")
+        LoggerUtils.log_info(f"driver - close current window")
         cls.get_driver().close()

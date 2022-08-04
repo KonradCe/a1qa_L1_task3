@@ -1,4 +1,4 @@
-from task3.framework.utils.logger_utils import log_info
+from task3.framework.utils.logger_utils import LoggerUtils
 from task3.pages.frames_page import FramesPage
 from task3.pages.main_page import MainPage
 from task3.pages.nested_frame_page import NestedFramePage
@@ -9,9 +9,9 @@ def test_case2(driver_setup_teardown):
     desired_string_parent_frame = "Parent frame"
     desired_string_nested_frame = "Child Iframe"
 
-    log_info("start of TEST CASE 2 - IFRAME")
+    LoggerUtils.log_info("start of TEST CASE 2 - IFRAME")
     # STEP 1: Navigate to main page -> main page is open
-    log_info("STEP 1: navigate to main page")
+    LoggerUtils.log_info("STEP 1: navigate to main page")
     main_page = MainPage()
     main_page.go_to_main_page()
     error_message_step1 = "opening main page should result in main page being open"
@@ -20,9 +20,9 @@ def test_case2(driver_setup_teardown):
     # STEP 2: Click on Alerts, Frame & Windows button; In a menu click Nested Frames button
     # -> Page with Nested Frames form is open.
     # -> There are messages "Parent frame" & "Child Iframe" present on page
-    log_info("STEP 2: Click on Alerts, Frame & Windows button...")
+    LoggerUtils.log_info("STEP 2: Click on Alerts, Frame & Windows button...")
     main_page.click_on_alert_frame_window_btn()
-    log_info("STEP 2: ...In a menu click Nested Frames button")
+    LoggerUtils.log_info("STEP 2: ...In a menu click Nested Frames button")
     left_menu = LeftPanelMenu()
     left_menu.click_on_button_from_category(
         button_name="Nested Frames", category_name="Frame"
@@ -45,7 +45,7 @@ def test_case2(driver_setup_teardown):
     # STEP 3: Select Frames option in a left menu
     # -> Page with Frames form is open.
     # -> Message from upper frame is equal to the message from lower frame
-    log_info("STEP 3: Select Frames option in a left menu")
+    LoggerUtils.log_info("STEP 3: Select Frames option in a left menu")
     left_menu.click_on_button_from_category(
         button_name="Frames", category_name="Alerts, Frame"
     )

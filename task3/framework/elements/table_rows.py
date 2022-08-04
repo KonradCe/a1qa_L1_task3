@@ -1,8 +1,8 @@
 from selenium.webdriver.common.by import By
 
 from task3.framework.driver_utils import SingletonWebDriver as Swd
-from task3.framework.utils import parse_utils
-from task3.framework.utils.logger_utils import log_warning
+from task3.framework.utils.parse_utils import ParseUtils
+from task3.framework.utils.logger_utils import LoggerUtils
 
 
 class TableRows:
@@ -33,8 +33,8 @@ class TableRows:
     def get_row_nb_with_user(self, user) -> int:
         rows = self.__get_rows()
         for row_nb, row in enumerate(rows):
-            if not parse_utils.table_row_is_empty(row.text):
-                parsed_row = parse_utils.table_row_string_to_list(row.text)
+            if not ParseUtils.table_row_is_empty(row.text):
+                parsed_row = ParseUtils.table_row_string_to_list(row.text)
                 if set(parsed_row) == set(
                     user.values()
                 ):  # this makes sure that all the values match
@@ -44,7 +44,9 @@ class TableRows:
     def delete_user(self, user):
         row_to_delete = self.get_row_nb_with_user(user)
         if row_to_delete == -1:
-            log_warning(f"No user ({user['first_name']} {user['last_name']} in table)")
+            LoggerUtils.log_warning(
+                f"No user ({user['first_name']} {user['last_name']} in table)"
+            )
         delete_btn_in_specific_row_loc = (
             By.XPATH,
             f"//div[@role='rowgroup'][{row_to_delete+1}]//span[contains(@id, 'delete-record')]",

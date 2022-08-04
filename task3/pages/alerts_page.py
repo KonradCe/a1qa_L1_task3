@@ -4,8 +4,8 @@ from task3.framework.base_form import BaseForm
 from task3.framework.elements.alert import Alert
 from task3.framework.elements.basic_element import BasicElement
 from task3.framework.elements.button_element import ButtonElement
-from task3.framework.utils import test_data_utils
-from task3.framework.utils.logger_utils import log_info
+from task3.framework.utils.test_data_utils import TestDataUtils
+from task3.framework.utils.logger_utils import LoggerUtils
 
 
 class AlertsPage(BaseForm):
@@ -30,44 +30,52 @@ class AlertsPage(BaseForm):
 
     def click_on_alert_button(self):
         alert_button = ButtonElement(self.ALERT_BTN_LOC, "button to trigger alert")
-        log_info(f"{self.page_name} - clicking on {alert_button.name}")
+        LoggerUtils.log_info(
+            f"{self.page_name} - clicking on {alert_button.name}"
+        )
         alert_button.click()
 
     def click_on_confirmation_btn(self):
         confirmation_btn = ButtonElement(
             self.CONFIRMATION_BTN_LOC, "button to trigger confirmation box"
         )
-        log_info(f"{self.page_name} - clicking on {confirmation_btn.name}")
+        LoggerUtils.log_info(
+            f"{self.page_name} - clicking on {confirmation_btn.name}"
+        )
         confirmation_btn.click()
 
     def click_on_prompt_btn(self):
         prompt_btn = ButtonElement(self.PROMPT_BTN_LOC, "button to trigger prompt")
-        log_info(f"{self.page_name} - clicking on {prompt_btn.name}")
+        LoggerUtils.log_info(f"{self.page_name} - clicking on {prompt_btn.name}")
         prompt_btn.click()
 
     def alert_with_text_is_open(self, text):
-        log_info(f"{self.page_name} - checking if alert with text: '{text}' is open")
+        LoggerUtils.log_info(
+            f"{self.page_name} - checking if alert with text: '{text}' is open"
+        )
         alert = Alert()
         return alert.get_text() == text
 
     def accept_alert(self):
-        log_info(f"{self.page_name} - accepting alert")
+        LoggerUtils.log_info(f"{self.page_name} - accepting alert")
         Alert().accept()
 
     def alert_is_closed(self):
-        log_info(f"{self.page_name} - checking if alert is closed")
+        LoggerUtils.log_info(f"{self.page_name} - checking if alert is closed")
         return not Alert().is_alert_present()
 
     def positive_confirmation_msg_exist(self):
         confirmation_msg = BasicElement(
             self.POSITIVE_CONFIRMATION_MSG_LOC, "message after accepting confirm box"
         )
-        log_info(f"{self.page_name} - checking if positive confirmation message exist")
+        LoggerUtils.log_info(
+            f"{self.page_name} - checking if positive confirmation message exist"
+        )
         return confirmation_msg.is_exists()
 
     def send_random_input_to_prompt(self) -> str:
-        text_to_enter = test_data_utils.generate_random_string()
-        log_info(
+        text_to_enter = TestDataUtils.generate_random_string()
+        LoggerUtils.log_info(
             f"{self.page_name} - sending random input to prompt; random input = {text_to_enter}"
         )
         prompt = Alert()
@@ -75,7 +83,7 @@ class AlertsPage(BaseForm):
         return text_to_enter
 
     def prompt_confirmation_msg_with_text_exist(self, text_in_message):
-        log_info(
+        LoggerUtils.log_info(
             f"{self.page_name} - checking for postive confirmation message, containing previously entered random input"
         )
         prompt_confirmation_msg_loc = (

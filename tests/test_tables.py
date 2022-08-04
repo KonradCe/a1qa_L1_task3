@@ -9,7 +9,7 @@ from task3.pages.tables_page import WebTablesPage
 
 
 @pytest.mark.parametrize("user", TestDataUtils.get_user_data())
-def test_case3(driver_setup_teardown, user):
+def test_table_operations(driver_setup_teardown, user):
     LoggerUtils.log_info("start of TEST CASE 3 - TABLES")
     LoggerUtils.log_info(f"user data being tested: {[(n, v) for n, v in user.items()]}")
     # STEP 1: Navigate to main page

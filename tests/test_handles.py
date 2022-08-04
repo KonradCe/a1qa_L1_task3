@@ -8,7 +8,7 @@ from task3.pages.support_forms.left_pannel_menu import LeftPanelMenu
 from task3.pages.windows_page import BrowserWindowsPage
 
 
-def test_case4(driver_setup_teardown):
+def test_switching_windows(driver_setup_teardown):
     LoggerUtils.log_info("start of TEST CASE 4 - HANDLES")
 
     # STEP 1: navigate to main page

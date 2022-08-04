@@ -12,10 +12,10 @@ class TableRows:
     def __init__(self, name):
         self.name = name
 
-    def __get_rows(self):
+    def get_rows(self):
         return Swd.get_driver().find_elements(*self.ROWS_LOC)
 
-    def __get_row_nb(self, row_nb):
+    def get_row_nb(self, row_nb):
         specific_row_loc = (By.XPATH, f"//div[@role='rowgroup'][{row_nb+1}]")
         return Swd.get_driver().find_element(*specific_row_loc)
 
@@ -31,7 +31,7 @@ class TableRows:
             return False
 
     def get_row_nb_with_user(self, user) -> int:
-        rows = self.__get_rows()
+        rows = self.get_rows()
         for row_nb, row in enumerate(rows):
             if not ParseUtils.table_row_is_empty(row.text):
                 parsed_row = ParseUtils.table_row_string_to_list(row.text)

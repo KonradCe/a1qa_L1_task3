@@ -7,15 +7,15 @@ from task3.framework.utils.logger_utils import LoggerUtils
 
 
 class LeftPanelMenu(BaseForm):
-    UNIQUE_ELEMENT_LOC = (By.XPATH, "//div[@class='left-pannel']")
-
     def __init__(self):
         super().__init__(
-            BasicElement(self.UNIQUE_ELEMENT_LOC, "left menu panel unique element"),
+            BasicElement(
+                (By.XPATH, "//div[@class='left-pannel']"),
+                "left menu panel unique element",
+            ),
             "left menu panel",
         )
 
-    # TODO: hard to read method - refactor?
     def click_on_button_from_category(self, button_name, category_name):
         LoggerUtils.log_info(
             f"{self.page_name} - clicking on {button_name} in {category_name} category"
@@ -37,7 +37,7 @@ class LeftPanelMenu(BaseForm):
         if not sub_menu.is_displayed():
             category_btn = BasicElement(
                 category_header_loc,
-                "'Alerts, Frame & Windows' category button",
+                f"Left menu category -{category_name}- header button",
             )
             category_btn.click()
 

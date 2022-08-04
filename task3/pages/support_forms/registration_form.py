@@ -10,13 +10,6 @@ class RegistrationForm(BaseForm):
     UNIQUE_ELEMENT_LOC = (By.XPATH, "//div[@id='registration-form-modal']")
     SUBMIT_ENTRY_BTN = (By.XPATH, "//button[@id='submit']")
 
-    FIRST_NAME_INPUT_LOC = (By.XPATH, "//input[@id='firstName']")
-    LAST_NAME_INPUT_LOC = (By.XPATH, "//input[@id='lastName']")
-    EMAIL_INPUT_LOC = (By.XPATH, "//input[@id='userEmail']")
-    AGE_INPUT_LOC = (By.XPATH, "//input[@id='age']")
-    SALARY_INPUT_LOC = (By.XPATH, "//input[@id='salary']")
-    DEPARTMENT_INPUT_LOC = (By.XPATH, "//input[@id='department']")
-
     def __init__(self):
         # the wait is here to ensure the element has appeared on screen
         # WaitUtils.wait_for_element_to_be_present_and_visible(self.UNIQUE_ELEMENT_LOC)
@@ -30,22 +23,27 @@ class RegistrationForm(BaseForm):
 
     def submit_user_data(self, user):
         first_name_input = InputElement(
-            self.FIRST_NAME_INPUT_LOC, "first name input element in registration form"
+            (By.XPATH, "//input[@id='firstName']"),
+            "first name input element in registration form",
         )
         last_name_input = InputElement(
-            self.LAST_NAME_INPUT_LOC, "last name input element in registration form"
+            (By.XPATH, "//input[@id='lastName']"),
+            "last name input element in registration form",
         )
         email_input = InputElement(
-            self.EMAIL_INPUT_LOC, "email input element in registration form"
+            (By.XPATH, "//input[@id='userEmail']"),
+            "email input element in registration form",
         )
         age_input = InputElement(
-            self.AGE_INPUT_LOC, "age input element in registration form"
+            (By.XPATH, "//input[@id='age']"), "age input element in registration form"
         )
         salary_input = InputElement(
-            self.SALARY_INPUT_LOC, "salary input element in registration form"
+            (By.XPATH, "//input[@id='salary']"),
+            "salary input element in registration form",
         )
         department_input = InputElement(
-            self.DEPARTMENT_INPUT_LOC, "department input element in registration form"
+            (By.XPATH, "//input[@id='department']"),
+            "department input element in registration form",
         )
 
         first_name_input.send_text(user["first_name"])

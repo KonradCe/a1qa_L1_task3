@@ -75,3 +75,4 @@ class WebTablesPage(BaseForm):
         LoggerUtils.log_info(f"{self.page_name} - getting number of records in table")
         table = TableRows("Table on 'Web Tables' page")
         return table.get_number_of_records()
+

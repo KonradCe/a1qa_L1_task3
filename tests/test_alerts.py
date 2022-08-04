@@ -4,7 +4,7 @@ from task3.pages.main_page import MainPage
 from task3.pages.support_forms.left_pannel_menu import LeftPanelMenu
 
 
-def test_case1(driver_setup_teardown):
+def test_alerts(driver_setup_teardown):
     desired_string_step3 = "You clicked a button"
     desired_string_step5 = "Do you confirm action?"
     desired_string_step7 = "Please enter your name"
@@ -106,7 +106,3 @@ def test_case1(driver_setup_teardown):
     assert alerts_page.prompt_confirmation_msg_with_text_exist(
         text_input
     ), error_message_step8
-
-
-if __name__ == "__main__":
-    test_case1(None)

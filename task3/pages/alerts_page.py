@@ -30,18 +30,14 @@ class AlertsPage(BaseForm):
 
     def click_on_alert_button(self):
         alert_button = ButtonElement(self.ALERT_BTN_LOC, "button to trigger alert")
-        LoggerUtils.log_info(
-            f"{self.page_name} - clicking on {alert_button.name}"
-        )
+        LoggerUtils.log_info(f"{self.page_name} - clicking on {alert_button.name}")
         alert_button.click()
 
     def click_on_confirmation_btn(self):
         confirmation_btn = ButtonElement(
             self.CONFIRMATION_BTN_LOC, "button to trigger confirmation box"
         )
-        LoggerUtils.log_info(
-            f"{self.page_name} - clicking on {confirmation_btn.name}"
-        )
+        LoggerUtils.log_info(f"{self.page_name} - clicking on {confirmation_btn.name}")
         confirmation_btn.click()
 
     def click_on_prompt_btn(self):

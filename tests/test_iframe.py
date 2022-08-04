@@ -5,7 +5,7 @@ from task3.pages.nested_frame_page import NestedFramePage
 from task3.pages.support_forms.left_pannel_menu import LeftPanelMenu
 
 
-def test_case2(driver_setup_teardown):
+def test_getting_data_from_frames(driver_setup_teardown):
     desired_string_parent_frame = "Parent frame"
     desired_string_nested_frame = "Child Iframe"
 

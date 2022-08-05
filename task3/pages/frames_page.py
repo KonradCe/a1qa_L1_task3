@@ -6,23 +6,25 @@ from task3.framework.elements.iframe import Iframe
 
 
 class FramesPage(BaseForm):
-    UNIQUE_ELEMENT_LOC = (
-        By.XPATH,
-        "//div[@class='main-header' and text()[contains(., 'Frames')] and text()[not(contains(., 'Nested'))]]",
+    __unique_element = BasicElement(
+        (
+            By.XPATH,
+            "//div[@class='main-header' and text()[contains(., 'Frames')] and text()[not(contains(., 'Nested'))]]",
+        ),
+        "Frames page unique header",
     )
-    UPPER_FRAME_LOC = (By.XPATH, "//div[@id='frame1Wrapper']//iframe")
-    LOWER_FRAME_LOC = (By.XPATH, "//div[@id='frame2Wrapper']//iframe")
+    __upper_frame = Iframe(
+        (By.XPATH, "//div[@id='frame1Wrapper']//iframe"), "Upper frame from frame page"
+    )
+    __lower_frame = Iframe(
+        (By.XPATH, "//div[@id='frame2Wrapper']//iframe"), "Lower frame from frame page"
+    )
 
     def __init__(self):
-        super().__init__(
-            BasicElement(self.UNIQUE_ELEMENT_LOC, "Frames page unique header"),
-            "frames page",
-        )
+        super().__init__(self.__unique_element, "frames page")
 
     def get_text_from_upper_frame(self):
-        upper_frame = Iframe(self.UPPER_FRAME_LOC, "Upper frame from frame page")
-        return upper_frame.get_text()
+        return self.__upper_frame.get_text()
 
     def get_text_from_lower_frame(self):
-        lower_frame = Iframe(self.LOWER_FRAME_LOC, "Lower frame from frame page")
-        return lower_frame.get_text()
+        return self.__lower_frame.get_text()

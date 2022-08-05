@@ -1,6 +1,6 @@
 from selenium.common import NoAlertPresentException
 
-from task3.framework.driver_utils import SingletonWebDriver as Swd
+from task3.framework.utils.driver_utils import SingletonWebDriver as Swd
 from task3.framework.utils.wait_utils import WaitUtils
 
 

@@ -16,7 +16,7 @@ class ConfigUtils:
         return wait_time
 
     @classmethod
-    def get_browser_of_choice(cls):
+    def get_browser_of_choice(cls) -> str:
         with open(cls.config_data_file_path) as f:
             j = json.load(f)
             browser = j["browser"]

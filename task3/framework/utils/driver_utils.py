@@ -1,7 +1,7 @@
 from selenium import webdriver
 
-from task3.framework.utils.logger_utils import LoggerUtils
 from task3.framework.browser_factory import BrowserFactory
+from task3.framework.utils.logger_utils import LoggerUtils
 
 
 class SingletonMeta(type):

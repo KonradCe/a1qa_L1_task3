@@ -9,31 +9,32 @@ from task3.framework.utils.logger_utils import LoggerUtils
 
 
 class WebTablesPage(BaseForm):
-    UNIQUE_ELEMENT_LOC = (
-        By.XPATH,
-        "//div[@class='main-header' and text()[contains(., 'Web Tables')]]",
+    __unique_element = BasicElement(
+        (By.XPATH, "//div[@class='main-header' and text()[contains(., 'Web Tables')]]"),
+        "alerts page unique header",
     )
-    WEB_TABLE_FORM_LOC = (By.XPATH, "//div[@class='web-tables-wrapper']")
-    ADD_RECORD_BTN_LOC = (By.XPATH, "//button[@id='addNewRecordButton']")
-    TABLE_LOC = (By.XPATH, "//div[contains(@class, 'ReactTable')]")
-    SEARCH_INPUT_LOC = (By.XPATH, "//input[@id='searchBox']")
+    __web_table_form = BasicElement(
+        (By.XPATH, "//div[@class='web-tables-wrapper']"), "web tables wrapper"
+    )
+    __add_record_btn = ButtonElement(
+        (By.XPATH, "//button[@id='addNewRecordButton']"),
+        "add records to the table button",
+    )
+    __search_input = InputElement(
+        (By.XPATH, "//input[@id='searchBox']"), "searchbox input on 'Web Tables' page"
+    )
 
     def __init__(self):
         super().__init__(
-            BasicElement(self.UNIQUE_ELEMENT_LOC, "alerts page unique header"),
+            self.__unique_element,
             "alerts page",
         )
 
-    def web_pages_form_is_open(self):
-        tables_form = BasicElement(self.WEB_TABLE_FORM_LOC, "web tables wrapper")
-        return tables_form.is_exists()
-
     def click_add_btn(self):
-        add_record_btn = ButtonElement(
-            self.ADD_RECORD_BTN_LOC, "add records to the table button"
+        LoggerUtils.log_info(
+            f"{self.page_name} - clicking on {self.__add_record_btn.name}"
         )
-        LoggerUtils.log_info(f"{self.page_name} - clicking on {add_record_btn.name}")
-        add_record_btn.click()
+        self.__add_record_btn.click()
 
     def confirm_user_in_table(self, user):
         LoggerUtils.log_info(
@@ -41,7 +42,7 @@ class WebTablesPage(BaseForm):
         )
         self.enter_text_into_table_searchbox(user["email"])
         table = TableRows("Table on 'Web Tables' page")
-        result = table.is_user_in_table(user)
+        result = table.is_data_in_table(user)
         self.clear_searchbox()
         return result
 
@@ -49,30 +50,29 @@ class WebTablesPage(BaseForm):
         LoggerUtils.log_info(
             f"{self.page_name} - entering text (={text}) into searchbox"
         )
-        searchbox = InputElement(
-            self.SEARCH_INPUT_LOC, "searchbox input on 'Web Tables' page"
-        )
         self.clear_searchbox()
-        searchbox.send_text(text)
+        self.__search_input.send_text(text)
 
     def clear_searchbox(self):
         LoggerUtils.log_debug(f"{self.page_name} - removing input from searchbox")
-        searchbox = InputElement(
-            self.SEARCH_INPUT_LOC, "searchbox input on 'Web Tables' page"
-        )
-        searchbox.clear()
+        self.__search_input.clear()
 
     def delete_user_entry(self, user):
         LoggerUtils.log_info(
             f"{self.page_name} - deleting user record ({user['first_name']} {user['last_name']}) from table"
         )
         self.enter_text_into_table_searchbox(user["email"])
+
         table = TableRows("Table on 'Web Tables' page")
-        table.delete_user(user)
+        row_to_delete = table.get_row_nb_with_data(user)
+        if row_to_delete == -1:
+            LoggerUtils.log_warning(
+                f"No user - {user['first_name']} {user['last_name']} - in table)"
+            )
+        table.click_delete_in_row_nb(row_to_delete)
         self.clear_searchbox()
 
     def get_number_of_records(self):
         LoggerUtils.log_info(f"{self.page_name} - getting number of records in table")
         table = TableRows("Table on 'Web Tables' page")
         return table.get_number_of_records()
-

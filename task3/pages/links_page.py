@@ -6,18 +6,19 @@ from task3.framework.utils.logger_utils import LoggerUtils
 
 
 class LinksPage(BaseForm):
-    UNIQUE_ELEMENT_LOC = (By.XPATH, "//div[@id='linkWrapper']")
-    HOME_LINK_LOC = (By.XPATH, "//a[@id='simpleLink']")
+    __unique_element = BasicElement(
+        (By.XPATH, "//div[@id='linkWrapper']"), "links page unique wrapper"
+    )
+    __home_link = BasicElement(
+        (By.XPATH, "//a[@id='simpleLink']"), "link to main page (from 'Links' page)"
+    )
 
     def __init__(self):
         super().__init__(
-            BasicElement(self.UNIQUE_ELEMENT_LOC, "links page unique wrapper"),
+            self.__unique_element,
             "'Links' page",
         )
 
     def click_on_home_link(self):
-        home_link = BasicElement(
-            self.HOME_LINK_LOC, "link to main page (from 'Links' page)"
-        )
-        LoggerUtils.log_info(f"{self.page_name} - clicking on {home_link.name}")
-        home_link.click()
+        LoggerUtils.log_info(f"{self.page_name} - clicking on {self.__home_link.name}")
+        self.__home_link.click()

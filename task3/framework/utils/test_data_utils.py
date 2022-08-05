@@ -21,6 +21,12 @@ class TestDataUtils:
         return j["main_page_url"]
 
     @classmethod
+    def get_my_age(cls):
+        with open(cls.test_data_file_path) as f:
+            j = json.load(f)
+        return j["my_age"]
+
+    @classmethod
     def get_desired_strings_for_test_case2(cls) -> dict:
         with open(cls.test_data_file_path) as f:
             j = json.load(f)
@@ -32,9 +38,13 @@ class TestDataUtils:
             j = json.load(f)
         return j["users"]
 
-    @classmethod
-    def generate_random_string(cls) -> str:
+    @staticmethod
+    def generate_random_string() -> str:
         letters = string.ascii_letters
         length = random.randrange(3, 20)
         random_list = [random.choice(letters) for i in range(length)]
         return "".join(random_list)
+
+    @staticmethod
+    def generate_random_number_in_0_100_range():
+        return random.randint(0, 100)

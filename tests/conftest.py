@@ -1,7 +1,7 @@
 import pytest
 
-from task3.framework.driver_utils import SingletonWebDriver as Swd
 from task3.framework.utils.config_data_utils import ConfigUtils
+from task3.framework.utils.driver_utils import SingletonWebDriver as Swd
 from task3.framework.utils.logger_utils import LoggerUtils
 
 
@@ -14,10 +14,11 @@ def driver_setup_teardown():
     yield
     Swd.driver_quit()
     Swd.unassign_driver()
-    LoggerUtils.log_info("driver teardown finished")
+    LoggerUtils.log_info("driver teardown finished\n")
 
 
 @pytest.fixture(scope="session", autouse=True)
 def logger_setup():
     LoggerUtils.logger_setup()
+    LoggerUtils.log_info("\n\n\n")
     LoggerUtils.log_info("logger setup finished")

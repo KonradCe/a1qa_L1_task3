@@ -7,19 +7,25 @@ from task3.framework.utils.logger_utils import LoggerUtils
 
 
 class BrowserWindowsPage(BaseForm):
-    UNIQUE_ELEMENT_LOC = (
-        By.XPATH,
-        "//div[@class='main-header' and text()[contains(., 'Browser Windows')]]",
+    __unique_element = BasicElement(
+        (
+            By.XPATH,
+            "//div[@class='main-header' and text()[contains(., 'Browser Windows')]]",
+        ),
+        "alerts page unique header",
     )
-    NEW_TAB_BTN_LOC = (By.XPATH, "//button[@id='tabButton']")
+    __new_tab_btn = ButtonElement(
+        (By.XPATH, "//button[@id='tabButton']"), "new tab button"
+    )
 
     def __init__(self):
         super().__init__(
-            BasicElement(self.UNIQUE_ELEMENT_LOC, "alerts page unique header"),
+            self.__unique_element,
             "'Browser Windows' page",
         )
 
     def click_new_tab_btn(self):
-        new_tab_btn = ButtonElement(self.NEW_TAB_BTN_LOC, "new tab button")
-        LoggerUtils.log_info(f"{self.page_name} - clicking on {new_tab_btn.name}")
-        new_tab_btn.click()
+        LoggerUtils.log_info(
+            f"{self.page_name} - clicking on {self.__new_tab_btn.name}"
+        )
+        self.__new_tab_btn.click()

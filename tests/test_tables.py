@@ -1,7 +1,7 @@
 import pytest
 
-from task3.framework.utils.test_data_utils import TestDataUtils
 from task3.framework.utils.logger_utils import LoggerUtils
+from task3.framework.utils.test_data_utils import TestDataUtils
 from task3.pages.main_page import MainPage
 from task3.pages.support_forms.left_pannel_menu import LeftPanelMenu
 from task3.pages.support_forms.registration_form import RegistrationForm
@@ -47,7 +47,7 @@ def test_table_operations(driver_setup_teardown, user):
     # -> Registration form has closed.
     # -> Data of User № has appeared in a table
     LoggerUtils.log_info(
-        "STEP 4: Enter data for User № from the table and then click Submit button"
+        "STEP 4: Enter data for User from the table and then click Submit button"
     )
     registration_form.submit_user_data(user)
     error_message_step4a = "after clicking submit registration form should close"
@@ -69,3 +69,7 @@ def test_table_operations(driver_setup_teardown, user):
     assert (
         nb_of_records_before_deletion > nb_of_records_after_deletion
     ), error_message_step5
+
+
+if __name__ == "__main__":
+    test_table_operations(None, TestDataUtils.get_user_data()[1])

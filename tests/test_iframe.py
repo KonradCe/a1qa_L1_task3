@@ -59,7 +59,3 @@ def test_getting_data_from_frames(driver_setup_teardown):
         "text from upper frame should be equal to the text form bottom frame"
     )
     assert upper_frame_text == lower_frame_text, error_message_step3b
-
-
-if __name__ == "__main__":
-    test_case2(None)

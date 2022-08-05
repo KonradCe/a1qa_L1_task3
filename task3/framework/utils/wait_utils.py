@@ -2,8 +2,8 @@ import selenium.webdriver.common.alert
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from task3.framework.driver_utils import SingletonWebDriver as Swd
 from task3.framework.utils.config_data_utils import ConfigUtils
+from task3.framework.utils.driver_utils import SingletonWebDriver as Swd
 
 
 class WaitUtils:
@@ -37,3 +37,8 @@ class WaitUtils:
     def wait_for_new_window_to_open(cls, current_handles):
         wait = cls.__get_standard_wait()
         wait.until(EC.new_window_is_opened(current_handles))
+
+    @classmethod
+    def text_in_attribute(cls, locator, attribute, text):
+        wait = WebDriverWait(Swd.get_driver(), timeout=15, poll_frequency=0.05)
+        wait.until(EC.text_to_be_present_in_element_attribute(locator, attribute, text))

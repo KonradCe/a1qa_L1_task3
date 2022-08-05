@@ -1,6 +1,6 @@
 from task3.framework.elements.base_element import BaseElement
-from task3.framework.utils.wait_utils import WaitUtils
 from task3.framework.utils.logger_utils import LoggerUtils
+from task3.framework.utils.wait_utils import WaitUtils
 
 
 class BaseForm:

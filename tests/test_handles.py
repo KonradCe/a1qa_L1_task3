@@ -1,6 +1,6 @@
-from task3.framework.driver_utils import SingletonWebDriver as Swd
-from task3.framework.utils.wait_utils import WaitUtils
+from task3.framework.utils.driver_utils import SingletonWebDriver as Swd
 from task3.framework.utils.logger_utils import LoggerUtils
+from task3.framework.utils.wait_utils import WaitUtils
 from task3.pages.links_page import LinksPage
 from task3.pages.main_page import MainPage
 from task3.pages.sample_page import SamplePage
@@ -86,7 +86,3 @@ def test_switching_windows(driver_setup_teardown):
         "switching back to 'Links' page tab should result in 'Links' page being open"
     )
     assert links_page.is_open(), error_message_step7
-
-
-if __name__ == "__main__":
-    test_case4(None)

@@ -1,7 +1,7 @@
 from selenium.common import TimeoutException, NoSuchElementException
 from selenium.webdriver.remote.webelement import WebElement
 
-from task3.framework.driver_utils import SingletonWebDriver as Swd
+from task3.framework.utils.driver_utils import SingletonWebDriver as Swd
 from task3.framework.utils.wait_utils import WaitUtils
 
 
@@ -39,3 +39,6 @@ class BaseElement:
             return False
         except NoSuchElementException:
             return True
+
+    def get_attribute(self, attribute_name):
+        return self._get_element().get_attribute(attribute_name)

@@ -5,10 +5,12 @@ from task3.framework.elements.basic_element import BasicElement
 
 
 class SamplePage(BaseForm):
-    UNIQUE_ELEMENT_LOC = (By.XPATH, "//h1[@id='sampleHeading']")
+    __unique_element = BasicElement(
+        (By.XPATH, "//h1[@id='sampleHeading']"), "sample page unique header"
+    )
 
     def __init__(self):
         super().__init__(
-            BasicElement(self.UNIQUE_ELEMENT_LOC, "sample page unique header"),
+            self.__unique_element,
             "sample page",
         )

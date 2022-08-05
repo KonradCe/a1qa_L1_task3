@@ -7,24 +7,24 @@ from task3.framework.utils.logger_utils import LoggerUtils
 
 
 class NestedFramePage(BaseForm):
-    UNIQUE_ELEMENT_LOC = (By.XPATH, "//div[@id='framesWrapper']")
-    PARENT_IFRAME_LOC = (By.XPATH, "//iframe[@id='frame1']")
+    __unique_element = BasicElement(
+        (By.XPATH, "//div[@id='framesWrapper']"), "nested frames unique header"
+    )
+    __parent_iframe = Iframe((By.XPATH, "//iframe[@id='frame1']"), "Parent Iframe")
 
     def __init__(self):
         super().__init__(
-            BasicElement(self.UNIQUE_ELEMENT_LOC, "nested frames unique header"),
+            self.__unique_element,
             "page with nested frames",
         )
 
     def get_text_from_parent_iframe(self) -> str:
-        parent_iframe = Iframe(self.PARENT_IFRAME_LOC, "Parent Iframe")
         LoggerUtils.log_info(
-            f"{self.page_name} - getting text from {parent_iframe.name}"
+            f"{self.page_name} - getting text from {self.__parent_iframe.name}"
         )
-        return parent_iframe.get_text()
+        return self.__parent_iframe.get_text()
 
     def get_text_from_child_iframe(self) -> str:
         LoggerUtils.log_info(f"{self.page_name} - getting text from nested iframe")
-        parent_iframe = Iframe(self.PARENT_IFRAME_LOC, "Parent Iframe")
-        nested_text = parent_iframe.get_text_from_nested_iframe()
+        nested_text = self.__parent_iframe.get_text_from_nested_iframe()
         return nested_text

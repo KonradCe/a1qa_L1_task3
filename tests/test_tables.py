@@ -69,7 +69,3 @@ def test_table_operations(driver_setup_teardown, user):
     assert (
         nb_of_records_before_deletion > nb_of_records_after_deletion
     ), error_message_step5
-
-
-if __name__ == "__main__":
-    test_table_operations(None, TestDataUtils.get_user_data()[1])

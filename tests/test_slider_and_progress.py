@@ -68,7 +68,3 @@ def test_slider_and_progress_bar(driver_setup_teardown):
     )
     error_message_step5 = "the difference between the desired and the obtained value from the progress bar is too high"
     assert error_percentage <= 2, error_message_step5
-
-
-if __name__ == "__main__":
-    test_slider_and_progress_bar(None)
